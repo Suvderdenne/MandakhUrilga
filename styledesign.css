@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    background-color: #f7e8ee;
+}
+
+.container {
+    width: 900px;
+    max-width: 100%;
+    margin: auto;
+}
+
+.container > h1 {
+    text-align: center;
+    color: #333;
+    font-family: Georgia, serif;
+}
+
+.container > p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+/* FORM */
+.form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: #555;
+}
+
+input,textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #c85a7b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #a94463;
+}
+
+
+/* INVITATION */
+.invitation {
+    background-color: white;
+    padding: 45px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.invitation > p:first-child {
+    color: #c85a7b;
+    letter-spacing: 4px;
+    font-size: 14px;
+}
+
+.invitation h2 {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    color: #333;
+}
+
+.invitation p {
+    color: #555;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.invitation h3 {
+    color: #c85a7b;
+    margin-top: 30px;
+}
+
+/* PHOTO */
+#showPhoto {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 20px;
+    border: 5px solid #f7d5df;
+}
+
+
+
+.invitation{
+    position: relative;
+}
+
+.sticker{
+    position: absolute;
+    width: 50px
+}
+
+.heart1{
+    top:30px;
+    left:30px;
+    animation: heartMOve 5s infinite;
+}
+@keyframes heartMove {
+    0% {
+        transform: scale(10);
+    }
+
+    50%{
+        transform: scale(15);
+    }
+
+    100%{
+        transform: scale(10);
+    }
+}
+
+.sticker2{
+    position: absolute;
+    width: 50px
+}
+.heart2{
+    top:80px;
+    right: 30px;
+    animation: heartMOve 2s infinite;
+}
