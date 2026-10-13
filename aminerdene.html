@@ -1,11 +1,301 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Амин-Эрдэнэ</h1>
-  </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Hurimiin urilga</title>
+    <style>
+        :root {
+            --bg: #7a0f1a;
+            --text: #f6e7c1;
+            --accent: #d4af37;
+            --card: #5e0b14;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #5e0b14;
+                --text: #f6e7c1;
+                --accent: #e6c35c;
+                --card: #480810;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #5e0b14;
+            --text: #f6e7c1;
+            --accent: #e6c35c;
+            --card: #480810;
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Georgia, "Times New Roman", serif;
+            scroll-snap-type: y proximity;
+            overflow-y: auto;
+        }
+
+        section {
+            min-height: 100vh;
+            min-height: 100svh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: clamp(2.4rem, 9vw, 4.5rem);
+            font-weight: 400;
+            margin: .3em 0;
+            letter-spacing: .02em;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin: 0 0 .6em;
+        }
+
+        p {
+            max-width: 32ch;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            margin: .4em 0;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: .3em;
+            font-size: .8rem;
+            color: var(--accent);
+        }
+
+        .card {
+            background: var(--card);
+            padding: 1.5rem 2rem;
+            border-radius: 14px;
+            border: 1px solid var(--accent);
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 1.5rem;
+            font-size: .8rem;
+            opacity: .6;
+            animation: bob 2s ease-in-out infinite;
+        }
+
+        @keyframes bob {
+            50% {
+                transform: translateY(6px);
+            }
+        }
+
+        /* Photo slots: click one to choose a picture from your device */
+        .photos {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo {
+            width: min(40vw, 190px);
+            aspect-ratio: 3 / 4;
+            border-radius: 999px 999px 14px 14px;
+            border: 2px solid var(--accent);
+            background: var(--card) center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: .85rem;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .photo.filled span {
+            display: none;
+        }
+
+        .photo input {
+            display: none;
+        }
+
+        .caption {
+            margin-top: .5rem;
+            color: var(--accent);
+        }
+
+        /* Dress code color swatches */
+        .swatches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem .9rem;
+            margin-top: 1.4rem;
+            max-width: 26rem;
+        }
+
+        .sw {
+            width: 4.2rem;
+            text-align: center;
+            font-size: .72rem;
+            letter-spacing: .04em;
+        }
+
+        .sw i {
+            display: block;
+            width: 3.2rem;
+            height: 3.2rem;
+            margin: 0 auto .4rem;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+        }
+
+        .sw.avoid i {
+            background: linear-gradient(135deg, #fff 46%, #c0392b 46%, #c0392b 54%, #fff 54%);
+        }
+
+        .sw.avoid {
+            opacity: .85;
+        }
+
+        /* Scroll-triggered reveal: start hidden, JS adds .visible */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal:nth-child(2) {
+            transition-delay: .15s;
+        }
+
+        .reveal:nth-child(3) {
+            transition-delay: .3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .hint {
+                animation: none;
+            }
+
+            body {
+                scroll-snap-type: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <p class="eyebrow reveal">Together with their families</p>
+        <h1 class="reveal">Anna &amp; Tomás</h1>
+        <p class="reveal">invite you to celebrate their wedding</p>
+        <span class="hint">scroll ↓</span>
+    </section>
+
+    <section>
+        <h2 class="reveal">The Happy Couple</h2>
+        <div class="photos reveal">
+            <div>
+                <label class="photo"><span>Tap to add photo</span><input type="file" accept="image/*"></label>
+                <div class="caption">Anna</div>
+            </div>
+            <div>
+                <label class="photo"><span>Tap to add photo</span><input type="file" accept="image/*"></label>
+                <div class="caption">Tomás</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="reveal">When &amp; Where</h2>
+        <div class="card reveal">
+            <p><strong>Saturday, June 12, 2027</strong></p>
+            <p>4:00 PM</p>
+            <p>Willow Garden Estate</p>
+            <p>1200 Orchard Lane, Cedar Hills</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="reveal">Dress Code</h2>
+        <div class="card reveal">
+            <p><strong>Formal</strong></p>
+            <p>Red, gold, and jewel tones are welcome. Please avoid white.</p>
+            <div class="swatches">
+                <div class="sw"><i style="background:#b3122b"></i>Crimson</div>
+                <div class="sw"><i style="background:#8e0f22"></i>Burgundy</div>
+                <div class="sw"><i style="background:#d4af37"></i>Gold</div>
+                <div class="sw"><i style="background:#0f6b4f"></i>Emerald</div>
+                <div class="sw"><i style="background:#1e3a8a"></i>Sapphire</div>
+                <div class="sw"><i style="background:#6b3fa0"></i>Amethyst</div>
+                <div class="sw avoid"><i></i>Avoid white</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // IntersectionObserver: runs a callback when an element enters the viewport.
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target); // reveal once, then stop watching
+                }
+            });
+        }, { threshold: 0.2 }); // trigger when 20% of the element is visible
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+        // Show a chosen picture inside its frame (in this browser only; nothing is uploaded)
+        document.querySelectorAll('.photo input').forEach((input) => {
+            input.addEventListener('change', () => {
+                const file = input.files[0];
+                if (!file) return;
+                const frame = input.parentElement;
+                frame.style.backgroundImage = 'url(' + URL.createObjectURL(file) + ')';
+                frame.classList.add('filled');
+            });
+        });
+    </script>
+</body>
+
 </html>
