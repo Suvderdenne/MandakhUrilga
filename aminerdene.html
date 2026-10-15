@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,20 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Hurimiin urilga</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #7a0f1a;
+            --bg-deep: #4a0810;
             --text: #f6e7c1;
             --accent: #d4af37;
             --card: #5e0b14;
+            --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+            --script: "Great Vibes", "Snell Roundhand", "Brush Script MT", cursive;
+            --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='.24' stroke-width='1'%3E%3Cpath d='M60 0L120 60L60 120L0 60Z'/%3E%3Cpath d='M60 14L106 60L60 106L14 60Z' stroke-opacity='.14'/%3E%3Ccircle cx='60' cy='60' r='24' stroke-opacity='.12'/%3E%3C/g%3E%3Cg fill='%23d4af37' fill-opacity='.2'%3E%3Cellipse cx='60' cy='45' rx='4' ry='11'/%3E%3Cellipse cx='60' cy='75' rx='4' ry='11'/%3E%3Cellipse cx='45' cy='60' rx='11' ry='4'/%3E%3Cellipse cx='75' cy='60' rx='11' ry='4'/%3E%3Cg transform='rotate(45 60 60)'%3E%3Cellipse cx='60' cy='48' rx='2.5' ry='7'/%3E%3Cellipse cx='60' cy='72' rx='2.5' ry='7'/%3E%3Cellipse cx='48' cy='60' rx='7' ry='2.5'/%3E%3Cellipse cx='72' cy='60' rx='7' ry='2.5'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='3.5'/%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Ccircle cx='120' cy='0' r='4'/%3E%3Ccircle cx='0' cy='120' r='4'/%3E%3Ccircle cx='120' cy='120' r='4'/%3E%3Ccircle cx='60' cy='0' r='2'/%3E%3Ccircle cx='60' cy='120' r='2'/%3E%3Ccircle cx='0' cy='60' r='2'/%3E%3Ccircle cx='120' cy='60' r='2'/%3E%3C/g%3E%3C/svg%3E");
             box-sizing: border-box;
-            padding-top: env(safe-area-inset-top, 0px);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         @media (prefers-color-scheme: dark) {
             :root:not([data-theme="light"]) {
                 --bg: #5e0b14;
+                --bg-deep: #38060c;
                 --text: #f6e7c1;
                 --accent: #e6c35c;
                 --card: #480810;
@@ -28,6 +33,7 @@
 
         :root[data-theme="dark"] {
             --bg: #5e0b14;
+            --bg-deep: #38060c;
             --text: #f6e7c1;
             --accent: #e6c35c;
             --card: #480810;
@@ -44,14 +50,30 @@
         }
 
         body {
-            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0, 0, 0, .5) 100%),
+                radial-gradient(ellipse at 50% 0%, rgba(230, 195, 92, .22), transparent 55%),
+                radial-gradient(ellipse at 50% 100%, rgba(230, 195, 92, .16), transparent 55%),
+                var(--pattern),
+                radial-gradient(ellipse at 50% 30%, var(--bg) 0%, var(--bg-deep) 100%);
+            background-size: auto, auto, auto, 120px 120px, auto;
+            background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+            background-position: center, center, center, center top, center;
+            background-attachment: fixed;
+            background-color: var(--bg-deep);
             color: var(--text);
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--serif);
+            font-size: 1.15rem;
             scroll-snap-type: y proximity;
             overflow-y: auto;
         }
 
+        body.locked {
+            overflow: hidden;
+        }
+
         section {
+            position: relative;
             min-height: 100vh;
             min-height: 100svh;
             scroll-snap-align: start;
@@ -60,50 +82,106 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem 1.5rem;
+            padding: 4.5rem 2.2rem;
             box-sizing: border-box;
         }
 
-        h1 {
-            font-size: clamp(2.4rem, 9vw, 4.5rem);
+        h1,
+        h2 {
             font-weight: 400;
-            margin: .3em 0;
-            letter-spacing: .02em;
+            margin: 0;
         }
 
         h2 {
-            font-size: 1.8rem;
-            font-weight: 400;
+            font-family: var(--script);
+            font-size: clamp(2.4rem, 10vw, 3.4rem);
             color: var(--accent);
-            margin: 0 0 .6em;
+            margin-bottom: .2em;
         }
 
         p {
-            max-width: 32ch;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            margin: .4em 0;
+            max-width: 30ch;
+            line-height: 1.55;
+            margin: .35em 0;
         }
 
         .eyebrow {
             text-transform: uppercase;
-            letter-spacing: .3em;
-            font-size: .8rem;
+            letter-spacing: .32em;
+            font-size: .78rem;
+            font-weight: 500;
             color: var(--accent);
         }
 
-        .card {
-            background: var(--card);
-            padding: 1.5rem 2rem;
-            border-radius: 14px;
-            border: 1px solid var(--accent);
+        .script {
+            font-family: var(--script);
+            color: var(--accent);
+        }
+
+        .names {
+            font-family: var(--script);
+            font-weight: 400;
+            font-size: clamp(3.4rem, 17vw, 6rem);
+            line-height: 1.05;
+            margin: .15em 0;
+            color: var(--text);
+            text-shadow: 0 2px 14px rgba(0, 0, 0, .35);
+        }
+
+        .names .amp {
+            display: block;
+            font-size: .5em;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .soft {
+            font-style: italic;
+            opacity: .9;
+        }
+
+        .big-date {
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .8rem;
+            width: min(70vw, 300px);
+            margin: 1.2rem auto;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent));
+        }
+
+        .divider::after {
+            background: linear-gradient(270deg, transparent, var(--accent));
+        }
+
+        .divider svg {
+            width: 26px;
+            height: 26px;
+            flex: none;
         }
 
         .hint {
             position: absolute;
-            bottom: 1.5rem;
-            font-size: .8rem;
-            opacity: .6;
+            bottom: 3.2rem;
+            font-size: .75rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: .7;
             animation: bob 2s ease-in-out infinite;
         }
 
@@ -113,26 +191,281 @@
             }
         }
 
-        /* Photo slots: click one to choose a picture from your device */
+        .frame {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .frame::before,
+        .frame::after {
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-color: var(--accent);
+        }
+
+        .frame::before {
+            inset: max(10px, env(safe-area-inset-top, 0px)) 10px 10px 10px;
+            border-width: 2px;
+            border-radius: 4px;
+        }
+
+        .frame::after {
+            inset: max(18px, calc(env(safe-area-inset-top, 0px) + 8px)) 18px 18px 18px;
+            border-width: 1px;
+            opacity: .75;
+        }
+
+        .corner {
+            position: absolute;
+            width: min(34vw, 160px);
+            height: min(34vw, 160px);
+        }
+
+        .corner.tl {
+            top: 2px;
+            left: 2px;
+        }
+
+        .corner.tr {
+            top: 2px;
+            right: 2px;
+            transform: scaleX(-1);
+        }
+
+        .corner.bl {
+            bottom: 2px;
+            left: 2px;
+            transform: scaleY(-1);
+        }
+
+        .corner.br {
+            bottom: 2px;
+            right: 2px;
+            transform: scale(-1, -1);
+        }
+
+        .petal {
+            fill: var(--accent);
+            stroke: var(--bg-deep);
+            stroke-width: 1;
+        }
+
+        .heart {
+            fill: var(--text);
+        }
+
+        .dot {
+            fill: #b3122b;
+        }
+
+        .leaf {
+            fill: #0f6b4f;
+            opacity: .95;
+        }
+
+        .vine {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .cover {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            width: 100%;
+            border: 0;
+            margin: 0;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text);
+            font-family: var(--serif);
+            background-image:
+                radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0, 0, 0, .5) 100%),
+                radial-gradient(ellipse at 50% 0%, rgba(230, 195, 92, .22), transparent 55%),
+                var(--pattern),
+                radial-gradient(circle at 50% 40%, var(--card) 0%, var(--bg-deep) 80%);
+            background-size: auto, auto, 120px 120px, auto;
+            background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+            background-position: center, center, center top, center;
+            background-color: var(--bg-deep);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: opacity .9s ease, transform .9s ease, visibility .9s;
+        }
+
+        .cover .names {
+            font-size: clamp(3rem, 15vw, 5rem);
+        }
+
+        .cover .tap {
+            margin-top: 1.6rem;
+            display: inline-block;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .32em;
+            font-size: .85rem;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .35;
+                transform: scale(.97);
+            }
+        }
+
+        .cover.open {
+            opacity: 0;
+            transform: scale(1.06);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .calendar {
+            width: min(78vw, 300px);
+            margin-top: 1.2rem;
+            padding: .9rem .8rem 1rem;
+            border-top: 1px solid var(--accent);
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .calendar .month {
+            font-family: var(--script);
+            font-size: 1.9rem;
+            color: var(--accent);
+            margin-bottom: .3rem;
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            row-gap: .25rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .cal-grid .dow {
+            color: var(--accent);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding-bottom: .3rem;
+        }
+
+        .cal-grid .day {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2rem;
+        }
+
+        .cal-grid .day.wedding {
+            position: relative;
+            font-weight: 600;
+            color: var(--bg-deep);
+            z-index: 0;
+        }
+
+        .cal-grid .day.wedding::before {
+            content: "";
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 3px var(--bg-deep), 0 0 0 4px var(--accent);
+            z-index: -1;
+        }
+
+        .timetable {
+            width: min(82vw, 340px);
+            margin-top: 1rem;
+            padding: 1.2rem 1.2rem 1rem;
+            border: 2px solid var(--accent);
+            outline: 1px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, .15);
+        }
+
+        .timetable h3 {
+            font-family: var(--script);
+            font-weight: 400;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 0 0 .5rem;
+        }
+
+        .tt-row {
+            display: grid;
+            grid-template-columns: 5.2rem 1fr;
+            gap: .8rem;
+            align-items: baseline;
+            padding: .5rem 0;
+            border-top: 1px dotted var(--accent);
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        .tt-row .time {
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: .04em;
+            white-space: nowrap;
+        }
+
+        .photo-wide {
+            width: min(82vw, 340px);
+            aspect-ratio: 5 / 6;
+            margin-top: 4rem;
+            border: 2px solid var(--accent);
+            outline: 1px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 6px;
+            background: var(--card) center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: .9rem;
+            box-sizing: border-box;
+        }
+
+        .photo-wide.filled span {
+            display: none;
+        }
+
         .photos {
             display: flex;
             gap: 1.2rem;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: .8rem;
         }
 
         .photo {
-            width: min(40vw, 190px);
+            width: min(38vw, 170px);
             aspect-ratio: 3 / 4;
-            border-radius: 999px 999px 14px 14px;
+            border-radius: 999px 999px 10px 10px;
             border: 2px solid var(--accent);
+            outline: 1px solid var(--accent);
+            outline-offset: 4px;
             background: var(--card) center / cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             color: var(--accent);
-            font-size: .85rem;
+            font-size: .9rem;
             padding: 1rem;
             box-sizing: border-box;
         }
@@ -141,36 +474,33 @@
             display: none;
         }
 
-        .photo input {
-            display: none;
-        }
-
         .caption {
-            margin-top: .5rem;
+            margin-top: .8rem;
+            font-family: var(--script);
+            font-size: 1.8rem;
             color: var(--accent);
         }
 
-        /* Dress code color swatches */
         .swatches {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem .9rem;
-            margin-top: 1.4rem;
-            max-width: 26rem;
+            gap: .5rem .9rem;
+            margin-top: .6rem;
+            max-width: 24rem;
         }
 
         .sw {
             width: 4.2rem;
             text-align: center;
-            font-size: .72rem;
+            font-size: .8rem;
             letter-spacing: .04em;
         }
 
         .sw i {
             display: block;
-            width: 3.2rem;
-            height: 3.2rem;
+            width: 3rem;
+            height: 3rem;
             margin: 0 auto .4rem;
             border-radius: 50%;
             border: 2px solid var(--accent);
@@ -185,11 +515,10 @@
             opacity: .85;
         }
 
-        /* Scroll-triggered reveal: start hidden, JS adds .visible */
         .reveal {
             opacity: 0;
             transform: translateY(28px);
-            transition: opacity .8s ease, transform .8s ease;
+            transition: opacity .9s ease, transform .9s ease;
         }
 
         .reveal.visible {
@@ -197,12 +526,16 @@
             transform: none;
         }
 
-        .reveal:nth-child(2) {
+        .d1 {
             transition-delay: .15s;
         }
 
-        .reveal:nth-child(3) {
+        .d2 {
             transition-delay: .3s;
+        }
+
+        .d3 {
+            transition-delay: .45s;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -212,8 +545,17 @@
                 transition: none;
             }
 
-            .hint {
+            .hint,
+            .cover .tap {
                 animation: none;
+            }
+
+            .cover {
+                transition: opacity .2s ease, visibility .2s;
+            }
+
+            .cover.open {
+                transform: none;
             }
 
             body {
@@ -223,78 +565,167 @@
     </style>
 </head>
 
-<body>
+<body class="locked">
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="flower" viewBox="-50 -50 100 100">
+                <g>
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(45)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(90)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(135)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(180)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(225)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(270)" />
+                    <ellipse class="petal" cx="0" cy="-26" rx="10" ry="20" transform="rotate(315)" />
+                    <circle class="heart" r="11" />
+                    <circle class="dot" r="5" />
+                </g>
+            </symbol>
+            <symbol id="garland" viewBox="0 0 200 200">
+                <path class="vine" d="M12 12 C 60 28, 110 22, 185 12" />
+                <path class="vine" d="M12 12 C 28 60, 22 110, 12 185" />
+                <ellipse class="leaf" cx="62" cy="30" rx="12" ry="5" transform="rotate(20 62 30)" />
+                <ellipse class="leaf" cx="108" cy="27" rx="12" ry="5" transform="rotate(-18 108 27)" />
+                <ellipse class="leaf" cx="150" cy="21" rx="11" ry="4.5" transform="rotate(12 150 21)" />
+                <ellipse class="leaf" cx="30" cy="62" rx="5" ry="12" transform="rotate(-20 30 62)" />
+                <ellipse class="leaf" cx="27" cy="108" rx="5" ry="12" transform="rotate(18 27 108)" />
+                <ellipse class="leaf" cx="21" cy="150" rx="4.5" ry="11" transform="rotate(-12 21 150)" />
+                <use href="#flower" x="-6" y="-6" width="80" height="80" />
+                <use href="#flower" x="82" y="2" width="34" height="34" />
+                <use href="#flower" x="2" y="82" width="34" height="34" />
+                <use href="#flower" x="138" y="0" width="24" height="24" />
+                <use href="#flower" x="0" y="138" width="24" height="24" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="frame" aria-hidden="true">
+        <svg class="corner tl"><use href="#garland" /></svg>
+        <svg class="corner tr"><use href="#garland" /></svg>
+        <svg class="corner bl"><use href="#garland" /></svg>
+        <svg class="corner br"><use href="#garland" /></svg>
+    </div>
+
+    <button class="cover" id="cover" type="button" aria-label="Tap to open the invitation">
+        <span class="eyebrow">Таныг хуримандаа урьж байна</span>
+        <div class="names">Бадмаа <span class="amp">&amp;</span> Болд</div>
+        <span class="tap">Энэ дээр дараарай</span>
+    </button>
 
     <section>
-        <p class="eyebrow reveal">Together with their families</p>
-        <h1 class="reveal">Anna &amp; Tomás</h1>
-        <p class="reveal">invite you to celebrate their wedding</p>
-        <span class="hint">scroll ↓</span>
+        <p class="eyebrow reveal">Бидний онцгой мөч</p>
+        <p class="soft reveal d1"> Аз жаргалын гэрч болж, баяр баясгалангийн мөчийг бидэнтэй хамт хуваалцана гэдэгт итгэн, Таныг хүрэлцэн ирэхийг хүндэтгэн хүсье.</p>
+        <div class="names reveal d2">Бадмаа <span class="amp">&amp;</span> Болд</div>
+        <div class="divider reveal d3"><svg aria-hidden="true"><use href="#flower" /></svg></div>
+        <p class="big-date reveal d3">Бямба гараг · 6 сарын 12 · 2027</p>
+        <span class="hint">доошоо</span>
     </section>
 
     <section>
-        <h2 class="reveal">The Happy Couple</h2>
-        <div class="photos reveal">
+        <h2 class="reveal">Аз жаргалтай хосууд</h2>
+        <div class="photos reveal d1">
             <div>
-                <label class="photo"><span>Tap to add photo</span><input type="file" accept="image/*"></label>
-                <div class="caption">Anna</div>
+                <div class="photo" id="photoBadma"><span>Зураг</span></div>
+                <div class="caption">Бадмаа</div>
             </div>
             <div>
-                <label class="photo"><span>Tap to add photo</span><input type="file" accept="image/*"></label>
-                <div class="caption">Tomás</div>
+                <div class="photo" id="photoBold"><span>Зураг</span></div>
+                <div class="caption">Болд</div>
             </div>
         </div>
     </section>
 
     <section>
-        <h2 class="reveal">When &amp; Where</h2>
-        <div class="card reveal">
-            <p><strong>Saturday, June 12, 2027</strong></p>
-            <p>4:00 PM</p>
-            <p>Willow Garden Estate</p>
-            <p>1200 Orchard Lane, Cedar Hills</p>
+        <h2 class="reveal">Хэзээ &amp; Хаана</h2>
+        <div class="divider reveal d1"><svg aria-hidden="true"><use href="#flower" /></svg></div>
+        <p class="big-date reveal d1">Бямба гараг, 6 сарын 12, 2027</p>
+        <p class="reveal d2">Өдрийн 4 цагт</p>
+        <div class="divider reveal d2"><svg aria-hidden="true"><use href="#flower" /></svg></div>
+        <p class="script reveal d3" style="font-size:2rem;max-width:none">хаяг</p>
+        <p class="reveal d3">энд хаяг оруулна</p>
+
+        <div class="calendar reveal d3" aria-label="June 2027, the wedding is on Saturday the 12th">
+            <div class="month">6 сар 2027</div>
+            <div class="cal-grid">
+                <div class="dow">Su</div><div class="dow">Mo</div><div class="dow">Tu</div><div class="dow">We</div><div class="dow">Th</div><div class="dow">Fr</div><div class="dow">Sa</div>
+                <div></div><div></div>
+                <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+                <div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day wedding">12</div>
+                <div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+                <div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+                <div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div>
+            </div>
         </div>
     </section>
 
     <section>
-        <h2 class="reveal">Dress Code</h2>
-        <div class="card reveal">
-            <p><strong>Formal</strong></p>
-            <p>Red, gold, and jewel tones are welcome. Please avoid white.</p>
-            <div class="swatches">
-                <div class="sw"><i style="background:#b3122b"></i>Crimson</div>
-                <div class="sw"><i style="background:#8e0f22"></i>Burgundy</div>
-                <div class="sw"><i style="background:#d4af37"></i>Gold</div>
-                <div class="sw"><i style="background:#0f6b4f"></i>Emerald</div>
-                <div class="sw"><i style="background:#1e3a8a"></i>Sapphire</div>
-                <div class="sw"><i style="background:#6b3fa0"></i>Amethyst</div>
-                <div class="sw avoid"><i></i>Avoid white</div>
-            </div>
+        <h2 class="reveal">Хувцаслалт</h2>
+        <p class="big-date reveal d1">Албан ёсны</p>
+        <p class="soft reveal d1">Энэ өнгөнүүдээс сонгоорой<br>Цагаан өнгө болохгүй</p>
+        <div class="swatches reveal d2">
+            <div class="sw"><i style="background:navy"></i></div>
+            <div class="sw"><i style="background:rgb(65, 3, 3)"></i></div>
+            <div class="sw"><i style="background:lightblue"></i></div>
+            <div class="sw"><i style="background:#1C0A00"></i></div>
+            <div class="sw"><i style="background:#1e3a8a"></i></div>
+            <div class="sw"><i style="background:#6b3fa0"></i></div>
+            <div class="sw avoid"><i></i>Цагаан болохгүй</div>
         </div>
+
+        <div class="timetable reveal d3">
+            <h3>Цагийн хуваарь</h3>
+            <div class="tt-row"><span class="time">3:30 PM</span><span>Хүлээн авалт</span></div>
+            <div class="tt-row"><span class="time">4:00 PM</span><span>Хуримын ёслол</span></div>
+            <div class="tt-row"><span class="time">4:45 PM</span><span>Зураг авалт &amp; Оргилуун дарс</span></div>
+            <div class="tt-row"><span class="time">6:00 PM</span><span>Оройн зоог</span></div>
+            <div class="tt-row"><span class="time">7:30 PM</span><span>Бүжиг</span></div>
+            <div class="tt-row"><span class="time">8:30 PM</span><span>Баярын бялуу</span></div>
+            <div class="tt-row"><span class="time">10:30 PM</span><span>Зочдыг үдэх</span></div>
+        </div>
+
+        <div class="photo-wide reveal d3" id="photoWide"><span>Зураг</span></div>
+    </section>
+
+    <!-- 5. Closing -->
+    <section>
+        <div class="divider reveal"><svg aria-hidden="true"><use href="#flower" /></svg></div>
+        <p class="soft reveal d1">Таныг хүрэлцэн ирэхийг тэсэн ядан хүлээе</p>
     </section>
 
     <script>
-        // IntersectionObserver: runs a callback when an element enters the viewport.
         const io = new IntersectionObserver((entries) => {
             entries.forEach((e) => {
                 if (e.isIntersecting) {
                     e.target.classList.add('visible');
-                    io.unobserve(e.target); // reveal once, then stop watching
+                    io.unobserve(e.target);
                 }
             });
-        }, { threshold: 0.2 }); // trigger when 20% of the element is visible
-        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+        }, { threshold: 0.2 });
 
-        // Show a chosen picture inside its frame (in this browser only; nothing is uploaded)
-        document.querySelectorAll('.photo input').forEach((input) => {
-            input.addEventListener('change', () => {
-                const file = input.files[0];
-                if (!file) return;
-                const frame = input.parentElement;
-                frame.style.backgroundImage = 'url(' + URL.createObjectURL(file) + ')';
-                frame.classList.add('filled');
-            });
-        });
+        const ANNA_PHOTO = "";
+        const TOMAS_PHOTO = "";
+        const WIDE_PHOTO = ""; 
+        function setPhoto(id, src) {
+            if (!src) return; // 
+            const frame = document.getElementById(id);
+            frame.style.backgroundImage = 'url("' + src + '")';
+            frame.classList.add('filled');
+        }
+        setPhoto('photoAnna', ANNA_PHOTO);
+        setPhoto('photoTomas', TOMAS_PHOTO);
+        setPhoto('photoWide', WIDE_PHOTO);
+
+        const cover = document.getElementById('cover');
+        cover.addEventListener('click', () => {
+            cover.classList.add('open');
+            document.body.classList.remove('locked');
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+            }, 250);
+        }, { once: true });
     </script>
 </body>
 
