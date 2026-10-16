@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Сэвлэг үргээх ёслолын урилга</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=Noto+Sans+Mongolian&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --night: #14294d;
+            --night-2: #1d3a68;
+            --red: #9e2a2f;
+            --red-dark: #7d1f24;
+            --red-light: #b8353b;
+            --gold: #e0a526;
+            --gold-dark: #a8791a;
+            --paper: #fdfcf8;
+            --ink: #1d2733;
+            --w: min(92vw, 460px);
+            /* дугтуйны өргөн */
+            --h: calc(var(--w) * 0.62);
+            /* дугтуйны өндөр */
+
+            --khee-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 22V2h20v16H8V8h8v4' fill='none' stroke='%23e0a526' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
+            --khee-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 22V2h20v16H8V8h8v4' fill='none' stroke='%23a8791a' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: var(--night);
+            color: var(--ink);
+            font-family: "Noto Serif", Georgia, "Times New Roman", serif;
+            line-height: 1.6;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 24px;
+            background: var(--khee-gold) repeat-x center;
+            opacity: .35;
+            pointer-events: none;
+        }
+
+        .stage {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2rem 1rem 3.5rem;
+        }
+
+        /* ---------- Дугтуй + цаас ---------- */
+        .scene {
+            position: relative;
+            width: var(--w);
+            height: var(--h);
+            perspective: 900px;
+            filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .35));
+            transition: height .9s ease;
+        }
+
+        .scene>span,
+        .scene>article {
+            position: absolute;
+            display: block;
+        }
+
+        .env-back {
+            inset: 0;
+            background: var(--red-dark);
+            border-radius: 4px;
+            z-index: 0;
+        }
+
+        .env-pocket {
+            inset: 0;
+            background: var(--red);
+            border-radius: 4px;
+            clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+            z-index: 3;
+        }
+
+        .env-pocket::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 6%;
+            height: 24px;
+            background: var(--khee-gold) repeat-x center;
+        }
+
+        .env-flap {
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 58%;
+            background: var(--red-light);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            z-index: 4;
+            transition: transform .6s ease, z-index 0s .3s;
+        }
+
+        .env-to {
+            left: 0;
+            right: 0;
+            bottom: 30%;
+            text-align: center;
+            color: #f3dfc0;
+            font-size: .9rem;
+            z-index: 5;
+            transition: opacity .3s ease;
+        }
+
+        .env-to b {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .env-seal {
+            left: 50%;
+            top: 58%;
+            width: 52px;
+            height: 52px;
+            margin: -26px 0 0 -26px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--red-dark);
+            display: grid;
+            place-items: center;
+            z-index: 6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+
+        .env-hit {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .env-hit:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 8px;
+        }
+
+        /* 1) Хавтас нээгдэнэ */
+        .scene.is-open .env-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .scene.is-open .env-seal,
+        .scene.is-open .env-to {
+            opacity: 0;
+        }
+
+        .scene.is-open .env-seal {
+            transform: scale(.6);
+        }
+
+        /* 3) Дугтуй доош буугаад алга болно */
+        .env-back,
+        .env-pocket,
+        .env-flap {
+            transition-property: transform, opacity, z-index;
+        }
+
+        .scene.is-away .env-back,
+        .scene.is-away .env-pocket,
+        .scene.is-away .env-flap {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: transform .9s ease, opacity .8s ease;
+        }
+
+        .scene.is-away .env-flap {
+            transform: translateY(60px) rotateX(180deg);
+        }
+
+        .scene.is-gone .env-back,
+        .scene.is-gone .env-pocket,
+        .scene.is-gone .env-flap,
+        .scene.is-gone .env-to,
+        .scene.is-gone .env-seal {
+            visibility: hidden;
+        }
+
+        /* ---------- Цаас (урилга) ---------- */
+        .letter {
+            left: 6%;
+            width: 88%;
+            top: 6%;
+            height: calc(var(--h) * 0.88);
+            /* дугтуйн дотор багтаж байх өндөр */
+            overflow: hidden;
+            padding: 1rem 1.25rem;
+            background: var(--paper);
+            border: 2px solid var(--gold);
+            z-index: 2;
+            /* дугтуйн урд талын ард */
+            transition: transform .9s cubic-bezier(.3, .7, .3, 1),
+                left .9s ease, width .9s ease, height .9s ease;
+        }
+
+        .letter:focus {
+            outline: none;
+        }
+
+        /* 2) Цаас дугтуйнаас гарч ирнэ */
+        .letter.is-out {
+            transform: translateY(calc(var(--h) * -0.55));
+        }
+
+        /* 3) Цаас бүтэн томорч, уншигдана */
+        .letter.is-read {
+            left: 0;
+            width: 100%;
+            transform: translateY(calc(var(--h) * -0.06));
+            z-index: 7;
+            overflow: visible;
+        }
+
+        .khee {
+            height: 24px;
+            background: var(--khee-dark) repeat-x center;
+        }
+
+        .body {
+            display: grid;
+            grid-template-columns: 3.2rem 1fr;
+            gap: 1rem;
+            padding: 1.25rem 0;
+        }
+
+        .script {
+            writing-mode: vertical-lr;
+            font-family: "Noto Sans Mongolian", "Mongolian Baiti", serif;
+            font-size: 2.4rem;
+            line-height: 1;
+            color: var(--red);
+            padding-right: 1rem;
+            border-right: 2px solid var(--gold);
+            display: flex;
+            justify-content: center;
+        }
+
+        .main {
+            text-align: center;
+        }
+
+        .toono {
+            width: 84px;
+            height: 84px;
+            color: var(--gold-dark);
+            margin-bottom: .5rem;
+        }
+
+        .letter.is-read .toono {
+            animation: spin 1.8s ease-out both;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(-90deg);
+            }
+
+            to {
+                transform: none;
+            }
+        }
+
+        .greeting {
+            margin: 0 0 .5rem;
+            color: #4a5a6b;
+            font-size: .95rem;
+        }
+
+        h1 {
+            margin: 0 0 1rem;
+            font-size: clamp(1.7rem, 7vw, 2.3rem);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--night);
+        }
+
+        .lead,
+        .invite {
+            margin: 0 auto 1.1rem;
+            max-width: 38ch;
+        }
+
+        .details {
+            margin: 0 0 1.1rem;
+            padding: .9rem 0;
+            border-top: 2px solid var(--red);
+            border-bottom: 2px solid var(--red);
+        }
+
+        .details div {
+            padding: .3rem 0;
+        }
+
+        .details dt {
+            font-size: .85rem;
+            color: #6b7a8a;
+        }
+
+        .details dd {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--red-dark);
+        }
+
+        .blessing {
+            margin: 0 auto 1.25rem;
+            max-width: 34ch;
+            font-style: italic;
+            color: var(--night-2);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .7rem;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .btn {
+            padding: .7rem 1.2rem;
+            background: var(--red);
+            color: #fff;
+            border: 2px solid var(--red);
+            border-radius: 4px;
+            text-decoration: none;
+            font: inherit;
+            font-size: .95rem;
+        }
+
+        .btn:hover {
+            background: var(--red-light);
+            border-color: var(--red-light);
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--red-dark);
+        }
+
+        .btn.ghost:hover {
+            background: rgba(158, 42, 47, .08);
+        }
+
+        .from {
+            margin: 0;
+            font-style: italic;
+            color: #4a5a6b;
+            white-space: pre-line;
+        }
+
+        .hint {
+            margin: 0;
+            font-size: .9rem;
+            color: #b9c6dc;
+            transition: opacity .3s ease;
+        }
+
+        .hint.is-hidden {
+            opacity: 0;
+        }
+
+        @media (max-width: 420px) {
+            .body {
+                grid-template-columns: 2.4rem 1fr;
+                gap: .6rem;
+            }
+
+            .script {
+                font-size: 1.9rem;
+                padding-right: .6rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition-duration: .01ms !important;
+                transition-delay: 0s !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Тооно (гэрийн уян) хээ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="toono" viewBox="0 0 100 100">
+            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="50" cy="50" r="44" />
+                <circle cx="50" cy="50" r="38" />
+                <circle cx="50" cy="50" r="11" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(0 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(15 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(30 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(45 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(60 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(75 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(90 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(105 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(120 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(135 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(150 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(165 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(180 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(195 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(210 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(225 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(240 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(255 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(270 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(285 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(300 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(315 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(330 50 50)" />
+                <line x1="50" y1="14" x2="50" y2="38" transform="rotate(345 50 50)" />
+            </g>
+            <g fill="currentColor">
+                <circle cx="50" cy="8" r="1.6" transform="rotate(0 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(30 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(60 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(90 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(120 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(150 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(180 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(210 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(240 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(270 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(300 50 50)" />
+                <circle cx="50" cy="8" r="1.6" transform="rotate(330 50 50)" />
+            </g>
+        </symbol>
+    </svg>
+
+    <main class="stage">
+
+        <div class="scene" id="scene">
+            <span class="env-back"></span>
+
+            <!-- Дугтуйнаас гарч ирэх цаас (урилга өөрөө) -->
+            <article class="letter" id="letter" tabindex="-1" inert>
+                <div class="khee" aria-hidden="true"></div>
+
+                <div class="body">
+                    <aside class="script" aria-hidden="true">ᠤᠷᠢᠯᠭ᠎ᠠ</aside>
+
+                    <div class="main">
+                        <svg class="toono" aria-hidden="true">
+                            <use href="#toono" />
+                        </svg>
+
+                        <p class="greeting" id="greeting"></p>
+                        <h1>Сэвлэг үргээх ёслол</h1>
+                        <p class="lead" id="lead"></p>
+
+                        <dl class="details">
+                            <div>
+                                <dt>Огноо</dt>
+                                <dd id="date"></dd>
+                            </div>
+                            <div>
+                                <dt>Цаг</dt>
+                                <dd id="time"></dd>
+                            </div>
+                            <div>
+                                <dt>Газар</dt>
+                                <dd id="place"></dd>
+                            </div>
+                        </dl>
+
+                        <p class="invite" id="invite"></p>
+                        <p class="blessing" id="blessing"></p>
+
+                        <div class="actions">
+                            <a class="btn" id="call" href="#">Утсаар баталгаажуулах</a>
+                            <a class="btn ghost" id="map" href="#" target="_blank" rel="noopener" hidden>Газрын
+                                зураг</a>
+                        </div>
+
+                        <p class="from" id="from"></p>
+                    </div>
+                </div>
+
+                <div class="khee" aria-hidden="true"></div>
+            </article>
+
+            <span class="env-pocket"></span>
+            <span class="env-flap"></span>
+            <span class="env-to">Эрхэм <b id="guest">зочин</b> танд</span>
+            <span class="env-seal" aria-hidden="true">
+                <svg width="34" height="34">
+                    <use href="#toono" />
+                </svg>
+            </span>
+
+            <button class="env-hit" id="open" type="button" aria-label="Дугтуйг нээх"></button>
+        </div>
+
+        <p class="hint" id="hint">Дугтуйг дарж нээнэ үү</p>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // ====== ЭНД ӨӨРИЙН МЭДЭЭЛЛЭЭ ӨӨРЧИЛНӨ ======
+        const CONFIG = {
+            greeting: "Эрхэм хүндэт зочин танд энэ өдрийн мэндийг хүргэе.",
+            lead: "Бид гэр бүлийнхээ сэвлэг өргөх ёслолыг тэмдэглэн өнгөрүүлэхээр боллоо.",
+            date: "2026 оны 11 дугаар сарын 14, Бямба гараг",
+            time: "12:00 цаг",
+            place: "Хаяг / ресторан / танхимын нэр",
+            invite: "Энэхүү ёслолд оролцож, баяр хөөрийг хамт хуваалцахыг тань хүндэтгэн урьж байна.",
+            blessing: "Аз жаргал, амар амгалан дэлгэрэх болтугай.",
+            phone: "99112233",       // баталгаажуулах утасны дугаар
+            mapUrl: "",              // Google Maps холбоос (хоосон бол товч харагдахгүй)
+            from: "Хүндэтгэсэн,\n... гэр бүл"
+        };
+        // =========================================
+
+        const $ = (id) => document.getElementById(id);
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Зочны нэрийг холбоосоос авна: index.html?name=Болд гуай
+        const guest = new URLSearchParams(location.search).get("name");
+        if (guest) $("guest").textContent = guest;
+
+        // Цаасан дээрх бичвэрийг бөглөх
+        $("greeting").textContent = CONFIG.greeting;
+        $("lead").textContent = CONFIG.lead;
+        $("date").textContent = CONFIG.date;
+        $("time").textContent = CONFIG.time;
+        $("place").textContent = CONFIG.place;
+        $("invite").textContent = CONFIG.invite;
+        $("blessing").textContent = CONFIG.blessing;
+        $("from").textContent = CONFIG.from;
+        $("call").href = "tel:" + CONFIG.phone;
+        if (CONFIG.mapUrl) {
+            $("map").href = CONFIG.mapUrl;
+            $("map").hidden = false;
+        }
+
+        const scene = $("scene");
+        const letter = $("letter");
+        const openBtn = $("open");
+
+        // Цаас бүтэн болоход дугтуйны өндрийг цаасны өндөртэй тааруулна
+        function syncSceneHeight() {
+            if (scene.classList.contains("is-away")) {
+                scene.style.height = letter.offsetHeight + "px";
+            }
+        }
+        new ResizeObserver(syncSceneHeight).observe(letter);
+
+        // Цаасны бүтэн өндрийг (бүтэн өргөнтэй үед) хэмжиж, зөөлөн томруулна
+        function expandLetter() {
+            const start = letter.offsetHeight;
+
+            letter.style.transition = "none";
+            letter.classList.add("is-read");
+            letter.style.height = "auto";
+            const end = letter.offsetHeight;
+
+            letter.classList.remove("is-read");
+            letter.style.height = start + "px";
+            void letter.offsetHeight;               // reflow
+            letter.style.transition = "";
+
+            letter.classList.add("is-read");
+            letter.style.height = end + "px";
+            scene.style.height = end + "px";
+            scene.classList.add("is-away");
+        }
+
+        openBtn.addEventListener("click", () => {
+            openBtn.remove();
+            $("hint").classList.add("is-hidden");
+
+            const t = reduceMotion ? 0 : 1;
+
+            // 1) хавтас нээгдэнэ
+            scene.classList.add("is-open");
+
+            // 2) цаас дугтуйнаас гарч ирнэ
+            setTimeout(() => letter.classList.add("is-out"), 700 * t);
+
+            // 3) дугтуй доош буугаад, цаас томорно
+            setTimeout(() => {
+                expandLetter();
+
+                setTimeout(() => {
+                    letter.style.height = "auto";
+                    letter.inert = false;
+                    scene.classList.add("is-gone");
+                    $("hint").hidden = true;
+                    letter.focus({preventScroll: true});
+                }, 1000 * t);
+            }, 1800 * t);
+        });
+    </script>
+
+</body>
+
+</html>
