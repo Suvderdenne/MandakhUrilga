@@ -42,6 +42,24 @@
           <div class="divider"><span>✦</span></div>
           <p class="letter-copy">Инээд хөөр, дурсамж дүүрэн<br>нэгэн өдрийг хамтдаа өнгөрүүлье.</p>
           <p class="letter-footer">Хайртай шүү ♡</p>
+            <div id="countdown"></div>
+          <script>
+            const eventDate = new Date("2026-12-31T18:00:00");
+              const box = document.getElementById("countdown");
+
+              setInterval(() => {
+                const diff = eventDate - new Date();
+                if (diff <= 0) {
+                  box.textContent = "Арга хэмжээ эхэллээ!";
+                  return;
+                }
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / (1000 * 60)) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+                box.textContent = `${days} өдөр ${hours} цаг ${mins} мин ${secs} сек`;
+              }, 1000);
+          </script>
         </div>
       </div>
       <div class="envelope-back"></div>
