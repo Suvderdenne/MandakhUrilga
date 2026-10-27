@@ -1,0 +1,27 @@
+:root {
+  --burgundy: #4A1718;
+  --cream: #E9DECA;
+  --text-brown: #511F20;
+  --gold: #B08A45;
+  --light-cream: #F7F0E4;
+  --wine-red: #8F2528;
+  --soft-gold: #D0B783;
+}
+
+body {
+  background-color: var(--burgundy);
+}
+
+.invitation {
+  background-color: var(--cream);
+  color: var(--text-brown);
+  border: 3px solid var(--gold);
+}
+
+.invitation h1 {
+  color: var(--text-brown);
+}
+
+.invitation .decoration {
+  color: var(--gold);
+}
