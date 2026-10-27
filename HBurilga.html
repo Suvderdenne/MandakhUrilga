@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Төрсөн өдрийн урилга</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             background-color: #4A1718;
             font-family: Georgia, serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            margin: 10px 0 25px;
+            font-style: italic;
+            color: #E9DECA;
+        }
+        header h1 {
+            font-size: clamp(28px, 6vw, 42px);
+        }
+        .scene {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            perspective: 1200px;
         }
 
         .invitation {
@@ -20,27 +42,204 @@
             border: 3px solid #B08A45;
             border-radius: 10px;
             box-shadow: 0 8px 25px #00000050;
+            overflow: hidden;
+            
         }
 
         h1 {
-            color: #511F20;
-            font-size: 48px;
+            color: #D5B16A;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(42px, 9vw, 62px);
+            font-weight: normal;
+        }
+        h2 {
+           font-family: 'Playfair Display', serif;
+           letter-spacing: 6px;
+           color: #F7F0E4;
         }
 
         p {
             line-height: 1.8;
+            color: #F7F0E4;
         }
+        .gold-line {
+            width: 70%;
+            margin: 25px auto;
+            border: 1px solid #B08A45;
+        }
+        .envelope-flap {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background:
+                radial-gradient(ellipse at center, #713139, transparent 75%),
+                linear-gradient(135deg, #672A31, #4A1718 65%, #672A31);
+            transform-origin: top center;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 1.3s ease, opacity 1s ease;
+            border-radius: 7px;
+        }
+        .envelope-flap:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(135deg, #713139, #4A1718);
+            clip-path: polygon(0 0, 50% 100%, 100% 0, 100% 100%, 0 100%);
+        }
+        .envelope-flap:before {
+            content: "✿   ❀   ✿   ❀   ✿";
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #B78378;
+            font-size: clamp(20px, 5vw, 34px);
+            letter-spacing: 5px;
+            text-shadow: 1px 2px 3px #290d10;
+        }
+        .seal {
+            
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 115px;
+            height: 115px;
+            border-radius: 45% 50% 45% 50%;
+            border: 5px ridge #D5B16A;
+            background:
+                radial-gradient(circle, #F5DDA0 0%, #D5B16A 45%,
+                #A87834 75%, #E8C87E 100%);
+            box-shadow:
+                0 5px 12px #21090B80,
+                inset 0 0 0 5px #E6C77E,
+                inset 0 0 0 9px #9B7139;
+            color: #79501F;
+            font-size: 48px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity .5s, transform .7s;
+        }
+    
+        .seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+
+        }
+        .hint {
+            position: absolute;
+            z-index: 11;
+            top: calc(50% + 75px);
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #F2E7D5;
+            font-size: 12px;
+            letter-spacing: 3px;
+            pointer-events: none;
+        }
+        .scene.open .envelope-flap {
+            transform: rotateX(180deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .scene.open .seal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.7) rotate(30deg);
+            pointer-events: none;
+        }
+
+        .scene.open .hint {
+            opacity: 0;
+        }
+        .open-button {
+            display: block;
+            margin: 25px auto 0;
+            padding: 12px 24px;
+            color: #F7F0E4;
+            background: #511F20;
+            border: 1px solid #B08A45;
+            cursor: pointer;
+            font-family: Georgia, serif;
+            letter-spacing: 1px;
+        }
+
+        .open-button:hover {
+            background: #8F2528;
+        }
+
+        @media (max-width: 480px) {
+            .invitation {
+                padding: 35px 15px;
+                min-height: 540px;
+            }
+
+            .seal {
+                width: 95px;
+                height: 95px;
+                font-size: 40px;
+            }
+        }
+
+
     </style>
+    <header style="text-align: center; margin-top: 20px; font-style: italic;">
+        <h1 style="color: #E9DECA;">Төрсөн өдрийн урилга</h1>
+        
+        <div class = "invitation">
+            
+            <h1>You're Invited!</h1>
+            <div class="gold-line"></div>
+            <p>JOIN US TO CELEBRATE THE</p>
+            <h2> BIRTHDAY </h2>
+            <p> OF</p>
+            <h1> Таны нэр </h1>
+            <div class="gold-line"></div>
+            <p>✿ &nbsp; ЦАГ &nbsp; ✿</p>
+            <p> 9:00 PM</p>
+            <p>✿ &nbsp; ОГНОО &nbsp; ✿</p>
+            <p>2026 оны 12-р сарын 12</p>
+            <div class="gold-line"></div>
+            <p>✿ &nbsp; ХАЯГ &nbsp; ✿</p>
+            <p>Shangri-La Hotel</p>
+            <div class="gold-line"></div>
+            <button class = "open-button" id="closeBtn">Дугтуйг Хаах</button>
+
+        </div>
+        <div class ="envelope-flap" id="flap"></div>
+        <button class="seal" id="seal" aria-label="Урилгыг нээх">
+          ❦
+        </button>
+        <div class="hint" id="hint"> ЛАЦАН ДЭЭР ДАРЖ НЭЭНЭ ҮҮ</div>
+
+    </div>
+    
+
+
+
+        </div>
+    <script>
+        const scene = document.querySelector('.scene');
+        const seal = document.getElementById('seal');
+        const closeBtn = document.getElementById('closeBtn');
+        seal.addEventListener('click', function() {
+            scene.classList.add('open');
+        });
+        closeBtn.addEventListener('click', function() {
+            scene.classList.remove('open');
+        });
+    </script>
+    </header>
 </head>
 
 <body>
-    <div class="invitation">
-        <h1>Таныг Урьж байна</h1>
-        <h2>BIRTHDAY</h2>
-        <p></p>
-        <p>Цаг: 9:00 PM</p>
-        <p>Хэзээ: 2026 оны 11-р сарын 11нд</p>
-        <p>Хаана: </p>
-    </div>
+    
 </body>
 </html>
