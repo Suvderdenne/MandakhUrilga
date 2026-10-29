@@ -1,0 +1,5 @@
+body{
+    background-color: plum;
+}
+
+.card { width: 420px; aspect-ratio: 105/148; background:#2b1b4d; position:relative; overflow:hidden; margin:auto; }
