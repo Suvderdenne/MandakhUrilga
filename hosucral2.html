@@ -3,32 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Сэвлэг үргээх ёслолын урилга</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=Noto+Sans+Mongolian&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&family=Noto+Serif:wght@400;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --night: #14294d;
-            --night-2: #1d3a68;
             --red: #9e2a2f;
             --red-dark: #7d1f24;
             --red-light: #b8353b;
             --gold: #e0a526;
-            --gold-dark: #a8791a;
-            --paper: #fdfcf8;
-            --ink: #1d2733;
-            --w: min(92vw, 460px);
-            /* дугтуйны өргөн */
-            --h: calc(var(--w) * 0.62);
-            /* дугтуйны өндөр */
-
             --khee-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 22V2h20v16H8V8h8v4' fill='none' stroke='%23e0a526' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
-            --khee-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 22V2h20v16H8V8h8v4' fill='none' stroke='%23a8791a' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
+            --blue: #1f3f93;
+            --blue-dark: #14296b;
+            --blue-light: #2c52b5;
+            --paper: #f8f9ff;
+            --ink: #232b3d;
+            --muted: #5b6783;
+            --line: #cfd7ec;
+            --w: min(92vw, 460px);
+            --h: calc(var(--w) * 0.62);
+            --cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'%3E%3Cpath fill='%23e4e9f6' d='M26 76C8 76 4 52 24 48C20 28 46 18 60 32C68 10 106 10 114 34C140 28 156 52 140 68C134 76 124 76 118 76Z'/%3E%3Cg fill='none' stroke='%23f7f9ff' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M62 52c0-10 16-10 16 0c0 8-10 8-10 2'/%3E%3Cpath d='M98 56c0-8 12-8 12 0c0 6-8 6-8 1'/%3E%3C/g%3E%3C/svg%3E");
+            --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='56' viewBox='0 0 80 56'%3E%3Cg fill='none' stroke='%23d9e0f2' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath id='c' d='M8 24c-6 0-7-8-1-9c0-7 9-9 13-4c3-5 12-3 12 4c5 0 6 9 0 9z'/%3E%3Cpath d='M16 19c0-4 7-4 7 0c0 3-4 3-4 1'/%3E%3Cg transform='translate(40 28)'%3E%3Cpath d='M8 24c-6 0-7-8-1-9c0-7 9-9 13-4c3-5 12-3 12 4c5 0 6 9 0 9z'/%3E%3Cpath d='M16 19c0-4 7-4 7 0c0 3-4 3-4 1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            --khee: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 22V2h20v16H8V8h8v4' fill='none' stroke='%23b9c8ee' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
+            --sans: "Noto Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+            --serif: "Noto Serif", Georgia, "Times New Roman", serif;
         }
 
         * {
@@ -44,7 +47,7 @@
             margin: 0;
             background: var(--night);
             color: var(--ink);
-            font-family: "Noto Serif", Georgia, "Times New Roman", serif;
+            font-family: var(--sans);
             line-height: 1.6;
         }
 
@@ -67,16 +70,16 @@
             align-items: center;
             justify-content: center;
             gap: 1.5rem;
-            padding: 2rem 1rem 3.5rem;
+            padding: 2rem 1rem 3rem;
         }
 
-        /* ---------- Дугтуй + цаас ---------- */
+        /* ---------- Дугтуй ---------- */
         .scene {
             position: relative;
             width: var(--w);
             height: var(--h);
             perspective: 900px;
-            filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .35));
+            filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .45));
             transition: height .9s ease;
         }
 
@@ -97,8 +100,8 @@
             inset: 0;
             background: var(--red);
             border-radius: 4px;
-            clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
             z-index: 3;
+            clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
         }
 
         .env-pocket::after {
@@ -151,7 +154,7 @@
             display: grid;
             place-items: center;
             z-index: 6;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
             transition: opacity .3s ease, transform .3s ease;
         }
 
@@ -169,7 +172,6 @@
             outline-offset: 8px;
         }
 
-        /* 1) Хавтас нээгдэнэ */
         .scene.is-open .env-flap {
             transform: rotateX(180deg);
             z-index: 1;
@@ -184,7 +186,6 @@
             transform: scale(.6);
         }
 
-        /* 3) Дугтуй доош буугаад алга болно */
         .env-back,
         .env-pocket,
         .env-flap {
@@ -217,27 +218,28 @@
             width: 88%;
             top: 6%;
             height: calc(var(--h) * 0.88);
-            /* дугтуйн дотор багтаж байх өндөр */
             overflow: hidden;
-            padding: 1rem 1.25rem;
-            background: var(--paper);
-            border: 2px solid var(--gold);
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background:
+                var(--cloud) no-repeat right -70px top 36% / 230px,
+                var(--cloud) no-repeat left -80px bottom 18% / 190px,
+                var(--pattern) repeat 0 0 / 80px 56px,
+                var(--paper);
             z-index: 2;
-            /* дугтуйн урд талын ард */
-            transition: transform .9s cubic-bezier(.3, .7, .3, 1),
-                left .9s ease, width .9s ease, height .9s ease;
+            transition: transform .9s cubic-bezier(.3, .7, .3, 1), left .9s ease, width .9s ease, height .9s ease;
         }
 
         .letter:focus {
             outline: none;
         }
 
-        /* 2) Цаас дугтуйнаас гарч ирнэ */
         .letter.is-out {
             transform: translateY(calc(var(--h) * -0.55));
         }
 
-        /* 3) Цаас бүтэн томорч, уншигдана */
         .letter.is-read {
             left: 0;
             width: 100%;
@@ -246,147 +248,282 @@
             overflow: visible;
         }
 
-        .khee {
-            height: 24px;
-            background: var(--khee-dark) repeat-x center;
+        /* Хүүхдийн зураг */
+        .photo {
+            margin: 0 auto 1rem;
+            width: 132px;
         }
 
-        .body {
-            display: grid;
-            grid-template-columns: 3.2rem 1fr;
-            gap: 1rem;
-            padding: 1.25rem 0;
+        .photo-frame {
+            position: relative;
+            width: 132px;
+            height: 132px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e6ebf8;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 2px var(--gold), 0 8px 18px rgba(20, 41, 107, .2);
         }
 
-        .script {
-            writing-mode: vertical-lr;
-            font-family: "Noto Sans Mongolian", "Mongolian Baiti", serif;
-            font-size: 2.4rem;
-            line-height: 1;
-            color: var(--red);
-            padding-right: 1rem;
-            border-right: 2px solid var(--gold);
-            display: flex;
-            justify-content: center;
+        .photo-frame img,
+        .photo-frame svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
-        .main {
-            text-align: center;
+        .photo-frame img {
+            object-fit: cover;
+            object-position: center 25%;
         }
 
-        .toono {
-            width: 84px;
-            height: 84px;
-            color: var(--gold-dark);
-            margin-bottom: .5rem;
+        .photo-frame svg {
+            fill: #b4c0e0;
         }
 
-        .letter.is-read .toono {
-            animation: spin 1.8s ease-out both;
+        .child-name {
+            margin: .8rem 0 0;
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--blue-dark);
         }
 
-        @keyframes spin {
-            from {
-                transform: rotate(-90deg);
-            }
-
-            to {
-                transform: none;
-            }
+        .eyebrow,
+        .label {
+            margin: 0;
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--blue);
         }
 
         .greeting {
-            margin: 0 0 .5rem;
-            color: #4a5a6b;
+            margin: .6rem 0 .4rem;
+            color: var(--muted);
             font-size: .95rem;
         }
 
         h1 {
-            margin: 0 0 1rem;
-            font-size: clamp(1.7rem, 7vw, 2.3rem);
-            font-weight: 600;
-            line-height: 1.2;
-            color: var(--night);
+            margin: 0 0 .8rem;
+            font-family: var(--serif);
+            font-size: clamp(1.6rem, 7vw, 2.1rem);
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--blue-dark);
         }
 
         .lead,
         .invite {
             margin: 0 auto 1.1rem;
-            max-width: 38ch;
+            max-width: 36ch;
+            font-size: .95rem;
         }
 
-        .details {
-            margin: 0 0 1.1rem;
-            padding: .9rem 0;
-            border-top: 2px solid var(--red);
-            border-bottom: 2px solid var(--red);
+        /* Огноо */
+        .date {
+            margin: 1.4rem 0 1.6rem;
         }
 
-        .details div {
-            padding: .3rem 0;
+        .day {
+            font-family: var(--serif);
+            font-weight: 700;
+            font-size: clamp(4.5rem, 22vw, 6rem);
+            line-height: 1;
+            color: var(--blue);
         }
 
-        .details dt {
-            font-size: .85rem;
-            color: #6b7a8a;
-        }
-
-        .details dd {
-            margin: 0;
-            font-size: 1.1rem;
+        .month-year {
+            margin: .4rem 0 .9rem;
+            font-size: .95rem;
             font-weight: 600;
-            color: var(--red-dark);
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .week-time {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .9rem;
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .week-time::before,
+        .week-time::after {
+            content: "";
+            flex: 0 1 70px;
+            height: 1px;
+            background: var(--line);
+        }
+
+        /* Тоолуур (цагираг) */
+        .countdown {
+            margin: 0 0 1.8rem;
+        }
+
+        .rings {
+            display: flex;
+            justify-content: center;
+            gap: .9rem;
+            margin-top: 1rem;
+        }
+
+        .ring span {
+            display: block;
+            margin-top: .35rem;
+            font-size: .68rem;
+            letter-spacing: .08em;
+            color: var(--muted);
+        }
+
+        .dial {
+            position: relative;
+            width: 66px;
+            height: 66px;
+        }
+
+        .dial svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .dial circle {
+            fill: none;
+            stroke-width: 3;
+        }
+
+        .dial .track {
+            stroke: #dde3f1;
+        }
+
+        .dial .arc {
+            stroke: var(--blue);
+            stroke-linecap: round;
+        }
+
+        .dial b {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--blue);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-done {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        /* Хаана */
+        .where {
+            margin: 0 0 1.5rem;
+        }
+
+        .venue {
+            margin: .8rem 0 0;
+            font-size: 1.05rem;
+        }
+
+        .address {
+            margin: 0 0 1rem;
+            font-size: 1.05rem;
+        }
+
+        .map-card {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            max-width: 380px;
+            height: 170px;
+            margin: 0 auto;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            text-decoration: none;
+            background: #e9efdf;
+        }
+
+        .map-card svg,
+        .map-card iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: 0;
+        }
+
+        .map-cta {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            padding: .35rem .9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .95);
+            color: var(--blue);
+            font-size: .8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .map-card:focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 3px;
         }
 
         .blessing {
-            margin: 0 auto 1.25rem;
+            margin: 0 auto 1.4rem;
             max-width: 34ch;
+            font-family: var(--serif);
             font-style: italic;
-            color: var(--night-2);
+            color: var(--blue-dark);
         }
 
         .actions {
             display: flex;
-            flex-wrap: wrap;
-            gap: .7rem;
             justify-content: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.4rem;
         }
 
         .btn {
-            padding: .7rem 1.2rem;
-            background: var(--red);
+            padding: .75rem 1.4rem;
+            background: var(--blue);
             color: #fff;
-            border: 2px solid var(--red);
-            border-radius: 4px;
+            border: 0;
+            border-radius: 999px;
             text-decoration: none;
             font: inherit;
             font-size: .95rem;
+            font-weight: 500;
         }
 
         .btn:hover {
-            background: var(--red-light);
-            border-color: var(--red-light);
+            background: var(--blue-light);
         }
 
         .btn:focus-visible {
-            outline: 3px solid var(--gold);
+            outline: 3px solid var(--blue);
             outline-offset: 3px;
-        }
-
-        .btn.ghost {
-            background: transparent;
-            color: var(--red-dark);
-        }
-
-        .btn.ghost:hover {
-            background: rgba(158, 42, 47, .08);
         }
 
         .from {
             margin: 0;
+            font-family: var(--serif);
             font-style: italic;
-            color: #4a5a6b;
+            color: var(--muted);
             white-space: pre-line;
         }
 
@@ -401,15 +538,14 @@
             opacity: 0;
         }
 
-        @media (max-width: 420px) {
-            .body {
-                grid-template-columns: 2.4rem 1fr;
-                gap: .6rem;
+        @media (max-width: 380px) {
+            .rings {
+                gap: .55rem;
             }
 
-            .script {
-                font-size: 1.9rem;
-                padding-right: .6rem;
+            .dial {
+                width: 60px;
+                height: 60px;
             }
         }
 
@@ -425,7 +561,6 @@
 
 <body>
 
-    <!-- Тооно (гэрийн уян) хээ -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <symbol id="toono" viewBox="0 0 100 100">
             <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -457,103 +592,109 @@
                 <line x1="50" y1="14" x2="50" y2="38" transform="rotate(330 50 50)" />
                 <line x1="50" y1="14" x2="50" y2="38" transform="rotate(345 50 50)" />
             </g>
-            <g fill="currentColor">
-                <circle cx="50" cy="8" r="1.6" transform="rotate(0 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(30 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(60 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(90 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(120 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(150 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(180 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(210 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(240 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(270 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(300 50 50)" />
-                <circle cx="50" cy="8" r="1.6" transform="rotate(330 50 50)" />
-            </g>
         </symbol>
     </svg>
 
     <main class="stage">
-
         <div class="scene" id="scene">
             <span class="env-back"></span>
 
-            <!-- Дугтуйнаас гарч ирэх цаас (урилга өөрөө) -->
+            <!-- Дугтуйнаас гарч ирэх цаас = урилга өөрөө -->
             <article class="letter" id="letter" tabindex="-1" inert>
-                <div class="khee" aria-hidden="true"></div>
-
-                <div class="body">
-                    <aside class="script" aria-hidden="true">ᠤᠷᠢᠯᠭ᠎ᠠ</aside>
-
-                    <div class="main">
-                        <svg class="toono" aria-hidden="true">
-                            <use href="#toono" />
+                <div class="photo" id="photo">
+                    <div class="photo-frame">
+                        <svg id="photo-ph" viewBox="0 0 100 100" aria-hidden="true">
+                            <circle cx="50" cy="38" r="18" />
+                            <path d="M14 100c0-22 16-36 36-36s36 14 36 36z" />
                         </svg>
-
-                        <p class="greeting" id="greeting"></p>
-                        <h1>Сэвлэг үргээх ёслол</h1>
-                        <p class="lead" id="lead"></p>
-
-                        <dl class="details">
-                            <div>
-                                <dt>Огноо</dt>
-                                <dd id="date"></dd>
-                            </div>
-                            <div>
-                                <dt>Цаг</dt>
-                                <dd id="time"></dd>
-                            </div>
-                            <div>
-                                <dt>Газар</dt>
-                                <dd id="place"></dd>
-                            </div>
-                        </dl>
-
-                        <p class="invite" id="invite"></p>
-                        <p class="blessing" id="blessing"></p>
-
-                        <div class="actions">
-                            <a class="btn" id="call" href="#">Утсаар баталгаажуулах</a>
-                            <a class="btn ghost" id="map" href="#" target="_blank" rel="noopener" hidden>Газрын
-                                зураг</a>
-                        </div>
-
-                        <p class="from" id="from"></p>
+                        <img id="photo-img" alt="" width="132" height="132" hidden>
                     </div>
+                    <p class="child-name" id="child-name" hidden></p>
                 </div>
 
-                <div class="khee" aria-hidden="true"></div>
+                <p class="eyebrow">Урилга</p>
+                <p class="greeting" id="greeting"></p>
+                <h1>Сэвлэг үргээх ёслол</h1>
+                <p class="lead" id="lead"></p>
+
+                <div class="date">
+                    <div class="day" id="day"></div>
+                    <div class="month-year" id="month-year"></div>
+                    <div class="week-time"><span id="week-time"></span></div>
+                </div>
+
+                <section class="countdown" id="countdown" role="timer">
+                    <p class="label">Болох хүртэл</p>
+                    <div class="rings" id="rings"></div>
+                </section>
+
+                <section class="where">
+                    <p class="label">Хаана</p>
+                    <p class="venue" id="venue"></p>
+                    <p class="address" id="address"></p>
+
+                    <a class="map-card" id="map" target="_blank" rel="noopener" aria-label="Газрын зураг нээх">
+                        <svg viewBox="0 0 320 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                            <rect width="320" height="170" fill="#e9efdf" />
+                            <path d="M150 0H320V92C262 80 200 70 150 92Z" fill="#cfe3b6" />
+                            <path
+                                d="M0 96C60 70 120 80 180 100S280 112 320 96V134C280 148 220 142 170 126S60 106 0 130Z"
+                                fill="#aed3e3" />
+                            <g fill="#d9dbe0">
+                                <rect x="14" y="10" width="30" height="16" />
+                                <rect x="52" y="8" width="22" height="22" />
+                                <rect x="16" y="40" width="26" height="18" />
+                                <rect x="50" y="42" width="34" height="14" />
+                                <rect x="18" y="144" width="36" height="16" />
+                                <rect x="62" y="146" width="28" height="14" />
+                                <rect x="190" y="146" width="40" height="16" />
+                                <rect x="240" y="148" width="30" height="14" />
+                            </g>
+                            <path d="M118 0L142 170" stroke="#f1c98e" stroke-width="9" />
+                            <path d="M0 154H320" stroke="#f1c98e" stroke-width="7" />
+                            <path d="M0 32H110" stroke="#fff" stroke-width="5" />
+                            <circle cx="176" cy="58" r="8" fill="#e2352b" stroke="#111" stroke-width="1.5" />
+                            <path d="M176 66V86" stroke="#111" stroke-width="3" stroke-linecap="round" />
+                        </svg>
+                        <span class="map-cta" id="map-cta">Газрын зураг нээх</span>
+                    </a>
+                </section>
+
+                <p class="invite" id="invite"></p>
+                <p class="blessing" id="blessing"></p>
+                <div class="actions"><a class="btn" id="call" href="#">Утсаар баталгаажуулах</a></div>
+                <p class="from" id="from"></p>
             </article>
 
             <span class="env-pocket"></span>
             <span class="env-flap"></span>
             <span class="env-to">Эрхэм <b id="guest">зочин</b> танд</span>
-            <span class="env-seal" aria-hidden="true">
-                <svg width="34" height="34">
+            <span class="env-seal" aria-hidden="true"><svg width="34" height="34">
                     <use href="#toono" />
-                </svg>
-            </span>
-
+                </svg></span>
             <button class="env-hit" id="open" type="button" aria-label="Дугтуйг нээх"></button>
         </div>
-
         <p class="hint" id="hint">Дугтуйг дарж нээнэ үү</p>
     </main>
 
-    <script src="script.js"></script>
     <script>
         // ====== ЭНД ӨӨРИЙН МЭДЭЭЛЛЭЭ ӨӨРЧИЛНӨ ======
         const CONFIG = {
+            showPhoto: false,          // true болговол хүүхдийн зураг харагдана
+            photo: "",                 // зургийн файл. Жишээ: "huuhed.jpg" (urilga.html-тэй нэг хавтсанд)
+            childName: "",             // хүүхдийн нэр (хоосон бол харагдахгүй)
             greeting: "Эрхэм хүндэт зочин танд энэ өдрийн мэндийг хүргэе.",
             lead: "Бид гэр бүлийнхээ сэвлэг өргөх ёслолыг тэмдэглэн өнгөрүүлэхээр боллоо.",
-            date: "2026 оны 11 дугаар сарын 14, Бямба гараг",
-            time: "12:00 цаг",
-            place: "Хаяг / ресторан / танхимын нэр",
+            date: "2026-11-14",        // оны-сар-өдөр
+            time: "12:00",             // цаг:минут
+            timezone: "+08:00",        // Улаанбаатар
+            venue: "Ресторан / танхимын нэр",
+            address: "Дүүрэг, хаяг, давхар",
             invite: "Энэхүү ёслолд оролцож, баяр хөөрийг хамт хуваалцахыг тань хүндэтгэн урьж байна.",
             blessing: "Аз жаргал, амар амгалан дэлгэрэх болтугай.",
-            phone: "99112233",       // баталгаажуулах утасны дугаар
-            mapUrl: "",              // Google Maps холбоос (хоосон бол товч харагдахгүй)
+            phone: "99112233",         // баталгаажуулах утасны дугаар
+            mapUrl: "",                // Google Maps холбоос (цохиход нээгдэнэ)
+            mapEmbed: "",              // Google Maps "Embed a map" iframe-ийн src (хүсвэл)
             from: "Хүндэтгэсэн,\n... гэр бүл"
         };
         // =========================================
@@ -561,41 +702,116 @@
         const $ = (id) => document.getElementById(id);
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // Зочны нэрийг холбоосоос авна: index.html?name=Болд гуай
+        // Зочны нэр: ?name=Болд гуай
         const guest = new URLSearchParams(location.search).get("name");
         if (guest) $("guest").textContent = guest;
 
-        // Цаасан дээрх бичвэрийг бөглөх
+        const WEEKDAYS = ["Ням", "Даваа", "Мягмар", "Лхагва", "Пүрэв", "Баасан", "Бямба"];
+        const [yy, mm, dd] = CONFIG.date.split("-").map(Number);
+
+        // Хүүхдийн зураг
+        if (!CONFIG.showPhoto) {
+            $("photo").hidden = true;
+        } else {
+            if (CONFIG.childName) {
+                $("child-name").textContent = CONFIG.childName;
+                $("child-name").hidden = false;
+            }
+            if (CONFIG.photo) {
+                const img = $("photo-img");
+                img.onload = () => { img.hidden = false; $("photo-ph").hidden = true; };
+                img.alt = CONFIG.childName || "Хүүхдийн зураг";
+                img.src = CONFIG.photo;
+            }
+        }
+
         $("greeting").textContent = CONFIG.greeting;
         $("lead").textContent = CONFIG.lead;
-        $("date").textContent = CONFIG.date;
-        $("time").textContent = CONFIG.time;
-        $("place").textContent = CONFIG.place;
+        $("day").textContent = dd;
+        $("month-year").textContent = mm + "-Р САР · " + yy;
+        $("week-time").textContent = WEEKDAYS[new Date(yy, mm - 1, dd).getDay()] + " · " + CONFIG.time;
+        $("venue").textContent = CONFIG.venue;
+        $("address").textContent = CONFIG.address;
         $("invite").textContent = CONFIG.invite;
         $("blessing").textContent = CONFIG.blessing;
         $("from").textContent = CONFIG.from;
         $("call").href = "tel:" + CONFIG.phone;
+
+        // Газрын зураг
+        const mapCard = $("map");
+        if (CONFIG.mapEmbed) {
+            mapCard.removeAttribute("aria-label");
+            mapCard.innerHTML = '<iframe loading="lazy" title="Газрын зураг" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+            mapCard.querySelector("iframe").src = CONFIG.mapEmbed;
+        }
         if (CONFIG.mapUrl) {
-            $("map").href = CONFIG.mapUrl;
-            $("map").hidden = false;
+            mapCard.href = CONFIG.mapUrl;
+        } else {
+            mapCard.removeAttribute("aria-label");
+            const cta = $("map-cta");
+            if (cta) cta.hidden = true;
+            mapCard.style.pointerEvents = CONFIG.mapEmbed ? "auto" : "none";
         }
 
+        // ====== Цагираг тоолуур ======
+        const R = 36, C = 2 * Math.PI * R;
+        const UNITS = [
+            { k: "d", label: "ӨДӨР", max: 30 },
+            { k: "h", label: "ЦАГ", max: 24 },
+            { k: "m", label: "МИНУТ", max: 60 },
+            { k: "s", label: "СЕКУНД", max: 60 }
+        ];
+        $("rings").innerHTML = UNITS.map(u => `
+      <div class="ring">
+        <div class="dial">
+          <svg viewBox="0 0 80 80" aria-hidden="true">
+            <circle class="track" cx="40" cy="40" r="${R}"/>
+            <circle class="arc" id="a-${u.k}" cx="40" cy="40" r="${R}"
+                    transform="rotate(-90 40 40)" stroke-dasharray="${C}" stroke-dashoffset="0"/>
+          </svg>
+          <b id="v-${u.k}">0</b>
+        </div>
+        <span>${u.label}</span>
+      </div>`).join("");
+
+        const target = new Date(`${CONFIG.date}T${CONFIG.time}:00${CONFIG.timezone}`);
+        const pad = (n) => String(n).padStart(2, "0");
+        let timer;
+
+        function setRing(k, value, max, text) {
+            $("v-" + k).textContent = text;
+            $("a-" + k).style.strokeDashoffset = C * (1 - Math.min(value / max, 1));
+        }
+
+        function tick() {
+            const diff = target - Date.now();
+            if (isNaN(diff) || diff <= 0) {
+                clearInterval(timer);
+                $("rings").innerHTML = '<p class="cd-done">Ёслол эхэллээ</p>';
+                return;
+            }
+            const s = Math.floor(diff / 1000);
+            const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600),
+                m = Math.floor((s % 3600) / 60), sec = s % 60;
+            setRing("d", d, 30, pad(d));
+            setRing("h", h, 24, pad(h));
+            setRing("m", m, 60, pad(m));
+            setRing("s", sec, 60, pad(sec));
+        }
+        tick();
+        timer = setInterval(tick, 1000);
+
+        // ====== Дугтуй нээх ======
         const scene = $("scene");
         const letter = $("letter");
         const openBtn = $("open");
 
-        // Цаас бүтэн болоход дугтуйны өндрийг цаасны өндөртэй тааруулна
-        function syncSceneHeight() {
-            if (scene.classList.contains("is-away")) {
-                scene.style.height = letter.offsetHeight + "px";
-            }
-        }
-        new ResizeObserver(syncSceneHeight).observe(letter);
+        new ResizeObserver(() => {
+            if (scene.classList.contains("is-away")) scene.style.height = letter.offsetHeight + "px";
+        }).observe(letter);
 
-        // Цаасны бүтэн өндрийг (бүтэн өргөнтэй үед) хэмжиж, зөөлөн томруулна
         function expandLetter() {
             const start = letter.offsetHeight;
-
             letter.style.transition = "none";
             letter.classList.add("is-read");
             letter.style.height = "auto";
@@ -603,7 +819,7 @@
 
             letter.classList.remove("is-read");
             letter.style.height = start + "px";
-            void letter.offsetHeight;               // reflow
+            void letter.offsetHeight;
             letter.style.transition = "";
 
             letter.classList.add("is-read");
@@ -615,30 +831,22 @@
         openBtn.addEventListener("click", () => {
             openBtn.remove();
             $("hint").classList.add("is-hidden");
-
             const t = reduceMotion ? 0 : 1;
 
-            // 1) хавтас нээгдэнэ
-            scene.classList.add("is-open");
-
-            // 2) цаас дугтуйнаас гарч ирнэ
-            setTimeout(() => letter.classList.add("is-out"), 700 * t);
-
-            // 3) дугтуй доош буугаад, цаас томорно
-            setTimeout(() => {
+            scene.classList.add("is-open");                                   // 1) хавтас нээгдэнэ
+            setTimeout(() => letter.classList.add("is-out"), 700 * t);        // 2) цаас гарч ирнэ
+            setTimeout(() => {                                                // 3) дугтуй буугаад цаас томорно
                 expandLetter();
-
                 setTimeout(() => {
                     letter.style.height = "auto";
                     letter.inert = false;
                     scene.classList.add("is-gone");
                     $("hint").hidden = true;
-                    letter.focus({preventScroll: true});
+                    letter.focus({ preventScroll: true });
                 }, 1000 * t);
             }, 1800 * t);
         });
     </script>
-
 </body>
 
 </html>
